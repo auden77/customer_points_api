@@ -4,9 +4,14 @@ import com.assignment.pointsApi.model.CustomerPoints;
 import com.assignment.pointsApi.model.MonthPoints;
 import com.assignment.pointsApi.model.Transaction;
 import com.assignment.pointsApi.Dao.TransactionDao;
+
+import static com.assignment.pointsApi.util.CustomerPointsUtil.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -75,9 +80,11 @@ public class CustomerPointsService {
                         .filter(item -> item.getCustomerId() == customer)
                         .map(item -> item.getPurchaseAmount())
                         .map(item -> getTransactionPoints(item))
-                        .reduce(0.0D, Double::sum);
+                        .reduce(BigDecimal.valueOf(0), BigDecimal::add)
+                        .setScale(2, RoundingMode.HALF_UP).doubleValue();
 
-                monthPointsList.add(new MonthPoints(monthList.get(i), yearList.get(i), pointsValue));
+                monthPointsList.add(new MonthPoints(monthList.get(i), yearList.get(i),
+                        pointsValue));
             }
             monthPointsByCustomerId.put(customer, monthPointsList);
         }
@@ -91,15 +98,4 @@ public class CustomerPointsService {
         }
     }
 
-    private double getTransactionPoints(float transactionAmt) {
-        double total = 0.0D;
-        if (transactionAmt > 50.00 && transactionAmt < 100.00) {
-            total += transactionAmt - 50.00;
-        }
-        if (transactionAmt > 100.00) {
-            total += 50.00;
-            total += (transactionAmt - 100.00) * 2;
-        }
-        return total;
-    }
 }

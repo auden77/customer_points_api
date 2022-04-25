@@ -16,11 +16,11 @@ public class CustomerPoints {
     private Double totalPoints;
 
     public Double getTotalPoints() {
-        Double tally = 0.0D;
+        BigDecimal tally = BigDecimal.valueOf(0);
         for (MonthPoints mp : monthPointsList) {
-            tally += mp.getPointsValue();
+            tally = tally.add(new BigDecimal(mp.getPointsValue().toString()));
         }
-        return tally;
+        return tally.setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     public void setTotalPoints(Double totalPoints) {
