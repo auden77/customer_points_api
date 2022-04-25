@@ -1,23 +1,25 @@
-This project is built with Maven
+### This project is built with Maven and Spring Web
 
-Dependencies:
-spring-boot-starter-web
-h2
-lombok
-spring-boot
-spring-boot-starter-test
-spring-boot-starter-data-jdbc
+### Dependencies:
+- spring-boot-starter-web
+- h2
+- lombok
+- spring-boot
+- spring-boot-starter-test
+- spring-boot-starter-data-jdbc
 
 
-To build:
+### To build:
 ```aidl
 ./mvnw clean package
 ```
 
-To run:
+### To run:
 ```aidl
 java -jar ./target/path-to-SNAPSHOT.jar
 ```
 
-To get points for last three months:
+### To get points for last three months:
+```
 curl -X GET http://localhost:8080/customer-points/points-balance-last-three-months
+```
