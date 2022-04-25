@@ -70,12 +70,13 @@ public class CustomerPointsService {
             List<MonthPoints> monthPointsList = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
                 Month month = monthList.get(i);
-                float pointsValue = transactionList.stream()
+                Double pointsValue = transactionList.stream()
                         .filter(item -> item.getTransactionTime().getMonth() == month)
                         .filter(item -> item.getCustomerId() == customer)
                         .map(item -> item.getPurchaseAmount())
                         .map(item -> getTransactionPoints(item))
-                        .reduce(0.0F, Float::sum);
+                        .reduce(0.0D, Double::sum);
+
                 monthPointsList.add(new MonthPoints(monthList.get(i), yearList.get(i), pointsValue));
             }
             monthPointsByCustomerId.put(customer, monthPointsList);
@@ -85,13 +86,13 @@ public class CustomerPointsService {
     private void createListOfCustomerPointsObjects(List<Integer> customerList, Map<Integer, List<MonthPoints>> monthPointsByCustomerId, List<CustomerPoints> listOfCustomerPointsObjects) {
         for (Integer customer : customerList) {
             List<MonthPoints> monthPoints = monthPointsByCustomerId.get(customer);
-            CustomerPoints customerPoints = new CustomerPoints(customer, monthPoints, 0.0F);
+            CustomerPoints customerPoints = new CustomerPoints(customer, monthPoints, 0.0D);
             listOfCustomerPointsObjects.add(customerPoints);
         }
     }
 
-    private float getTransactionPoints(float transactionAmt) {
-        float total = 0.0F;
+    private double getTransactionPoints(float transactionAmt) {
+        double total = 0.0D;
         if (transactionAmt > 50.00 && transactionAmt < 100.00) {
             total += transactionAmt - 50.00;
         }

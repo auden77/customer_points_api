@@ -13,17 +13,17 @@ import java.util.List;
 public class CustomerPoints {
     private Integer customerId;
     private List<MonthPoints> monthPointsList = new ArrayList<>();
-    private Float totalPoints;
+    private Double totalPoints;
 
-    public Float getTotalPoints() {
-        Float tally = 0.0F;
+    public Double getTotalPoints() {
+        Double tally = 0.0D;
         for (MonthPoints mp : monthPointsList) {
             tally += mp.getPointsValue();
         }
         return tally;
     }
 
-    public void setTotalPoints(Float totalPoints) {
+    public void setTotalPoints(Double totalPoints) {
         this.totalPoints = totalPoints;
     }
 }
