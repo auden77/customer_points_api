@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CustomerPointsController.class)
-//@WithMockUser
 public class CustomerPointsControllerTest {
 
     @MockBean
