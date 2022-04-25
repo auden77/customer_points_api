@@ -12,6 +12,6 @@ import java.time.Month;
 public class MonthPoints {
     private Month month;
     private Integer monthYear;
-    private Float pointsValue;
+    private Double pointsValue;
 
 }
